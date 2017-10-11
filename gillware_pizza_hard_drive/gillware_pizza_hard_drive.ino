@@ -61,7 +61,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   stepper.run();
   // case states for the button interface
-  switch (lcd.button()) {
+  switch (lcd.buttonBlocking()) {
     case KEYPAD_LEFT:
       lcd.print("LEFT  ");
       break;
@@ -76,12 +76,12 @@ void loop() {
       break;
     case KEYPAD_SELECT:
       lcd.print("SELECT");
+      stepper.newMoveDegrees (moveClockwise, 360); // move 180 degrees from current position
+      moveStartTime = millis(); // reset move start time
       break;
     default:
       lcd.print("NONE  ");
       break;
   }
-  
-  stepper.newMoveDegrees (moveClockwise, 360); // move 180 degrees from current position
-  moveStartTime = millis(); // reset move start time
+
 }
